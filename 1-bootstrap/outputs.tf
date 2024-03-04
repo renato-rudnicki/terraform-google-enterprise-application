@@ -14,6 +14,24 @@
  * limitations under the License.
  */
 
+output "project_id" {
+  description = "Project ID for initial resources."
+  value = var.project_id
+}
+
+output "source_repo_urls" {
+  value = { for repo_id, repo in google_sourcerepo_repository.gcp_repo : repo_id => "https://source.developers.google.com/p/${var.project_id}/r/${repo.name}" }
+}
+
 output "state_buckets" {
   value = { for key, value in module.tf_cloudbuild_workspace : key => value.state_bucket }
 }
+
+output "artifacts_bucket" {
+   value = { for key, value in module.tf_cloudbuild_workspace : key => value.artifacts_bucket }
+}
+
+output "logs_bucket" {
+  value = { for key, value in module.tf_cloudbuild_workspace : key => value.logs_bucket }
+}
+
