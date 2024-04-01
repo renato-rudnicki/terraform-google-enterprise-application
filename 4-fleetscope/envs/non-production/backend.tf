@@ -14,19 +14,9 @@
  * limitations under the License.
  */
 
-locals {
-  env = "development"
-
-  namespace_ids = ["frontend", "accounts", "transactions"]
-}
-
-module "env" {
-  source = "../../modules/env_baseline"
-
-  env                    = local.env
-  fleet_project_id       = var.fleet_project_id
-  cluster_project_id     = var.cluster_project_id
-  network_project_id     = var.network_project_id
-  namespace_ids          = local.namespace_ids
-  cluster_membership_ids = var.cluster_membership_ids
+terraform {
+  backend "gcs" {
+    bucket = "UPDATE_ME"
+    prefix = "terraform/fleet_scope/non-production"
+  }
 }

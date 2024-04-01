@@ -15,14 +15,17 @@
 package testutils
 
 import (
-	"github.com/tidwall/gjson"
+	"os"
 )
 
-// getResultFieldStrSlice parses a field of a results list into a string slice
-func GetResultFieldStrSlice(rs []gjson.Result, field string) []string {
-	s := make([]string, 0)
-	for _, r := range rs {
-		s = append(s, r.Get(field).String())
+// fileExists check if a give file exists
+func FileExists(filePath string) (bool, error) {
+	_, err := os.Stat(filePath)
+	if err == nil {
+		return true, nil
 	}
-	return s
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+	return false, err
 }

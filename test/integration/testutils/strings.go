@@ -15,14 +15,10 @@
 package testutils
 
 import (
-	"github.com/tidwall/gjson"
+	"strings"
 )
 
-// getResultFieldStrSlice parses a field of a results list into a string slice
-func GetResultFieldStrSlice(rs []gjson.Result, field string) []string {
-	s := make([]string, 0)
-	for _, r := range rs {
-		s = append(s, r.Get(field).String())
-	}
-	return s
+func GetLastSplitElement(value string, sep string) string {
+	splitted := strings.Split(value, sep)
+	return splitted[len(splitted)-1]
 }
